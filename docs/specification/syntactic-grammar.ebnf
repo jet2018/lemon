@@ -1,0 +1,13 @@
+(* First review draft, scoped to the existing hello examples.
+   Strings denote terminals. Braces denote repetition. Brackets denote an option.
+   identifier and string_literal are tokens defined in lexical-grammar.md. *)
+
+program          = class_decl, { class_decl } ;
+class_decl       = "class", identifier, "{", { method_decl }, "}" ;
+method_decl      = [ "static" ], return_type, identifier, "(", ")", block ;
+return_type      = "void" | identifier ;
+block            = "{", { call_statement }, "}" ;
+call_statement   = qualified_name, "(", [ arguments ], ")", ";" ;
+qualified_name   = identifier, { ".", identifier } ;
+arguments        = argument, { ",", argument } ;
+argument         = string_literal | qualified_name ;
